@@ -1,0 +1,6 @@
+id, name, date, time, genre, stageId
+1, Midnight Groove, 2024-08-10, 22:00, HOUSE, 1
+2, Solar Sounds, 2024-08-10, 18:00, JAZZ, 3
+3, Deep Space, 2024-08-11, 23:00, TECHNO, 2
+4, Rhythm Nation, 2024-08-11, 20:00, HIPHOP, 1
+5, Sunday Session, 2024-08-12, 16:00, HOUSE, 3

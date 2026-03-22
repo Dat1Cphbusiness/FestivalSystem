@@ -1,0 +1,54 @@
+@startuml
+
+enum Genre {
+    HOUSE
+    TECHNO
+    HIPHOP
+    JAZZ
+    ROCK
+}
+
+class Festival {
+    +id: int
+    +name: String
+    +location: String
+    +startDate: LocalDate
+    +endDate: LocalDate
+    -stages: List<Stage>
+    +startSession(): void
+    +endSession(): void
+    +displayStages(): void
+}
+
+class Stage {
+    +id: int
+    +name: String
+    +capacity: int
+    -concerts: List<Concert>
+    +addConcert(Concert): void
+    +displayConcerts(): void
+}
+
+class Concert {
+    +id: int
+    +name: String
+    +date: LocalDate
+    +time: LocalTime
+    +genre: Genre
+    -artists: List<Artist>
+    +addArtist(Artist): void
+    +displayArtists(): void
+}
+
+class Artist {
+    +id: int
+    +name: String
+    +nationality: String
+}
+
+Festival *-- Stage
+Stage *-- Concert
+Concert *-- Artist
+Concert --> Genre
+
+@enduml
