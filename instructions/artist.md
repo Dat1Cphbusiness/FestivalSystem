@@ -2,10 +2,10 @@
 
 I dag skal I implementere indlæsning, oprettelse og persistering af `Artist`-objekter i vores `Festival`-applikation.
 
-Jeres opgave er delt i tre dele:
-1. Implementer `Artist`-klassen
-2. Implementer `createArtists()` i `Festival`
-3. Implementer `saveArtists()` i `Festival`
+Jeres opgave er delt i to dele:
+
+1. Implementer `createArtists()` i `Festival`
+2. Implementer `saveArtists()` i `Festival`
 
 ---
 
@@ -27,18 +27,13 @@ Filen `artists.csv` har følgende kolonner:
 id, name, nationality, concertId
 ```
 
-Eksempel:
-```
-1, DJ Koze, German, 1
-2, Floating Points, British, 2
-3, Bobbi Humphrey, American, 2
-```
+Se data sample i data folderen.
 
 ---
 
 ## Del 1: Implementer Artist-klassen
 
-`Artist` skal have følgende felter:
+`Artist` har følgende felter:
 
 ```java
 private int id;
@@ -57,8 +52,8 @@ I `Festival`-klassen skal I implementere:
 ```java
 private void createArtists(String[] data) {
     // 1. Iterer over linjerne i data
-    // 2. Split hver linje på komma
-    // 3. Udpak og konverter hvert felt
+    // 2. Split hver linje på komma (isolerer felterne)
+    // 3. Udpak hvert felt (fx String name = fields[1].trim();)
     // 4. Opret et Artist-objekt
     // 5. Find den Concert der matcher concertId
     // 6. Tilføj Artist til Concert
@@ -130,15 +125,7 @@ Læg mærke til at det er præcis den samme struktur som da I søgte efter den r
 
 ---
 
-## Del 4: Test
 
-Kør programmet, tilføj en ny artist undervejs, luk programmet og genstart. Verificer at:
-
-- Alle eksisterende artists indlæses korrekt ved opstart
-- Den nye artist er gemt i CSV-filen efter programmet lukker
-- Genstarten indlæser den nye artist korrekt
-
----
 
 ## Hvad sker der bag kulisserne?
 

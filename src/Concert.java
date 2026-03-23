@@ -21,9 +21,6 @@ public class Concert {
         this.artists = new ArrayList<>();
     }
 
-    public void addArtist(Artist artist) {
-        artists.add(artist);
-    }
 
     public void displayArtists() {
         for (Artist a : artists) {
@@ -33,10 +30,8 @@ public class Concert {
 
 
 
-    // Concert
-    public void addArtist(int id, String name, String nationality) {
-        artists.add(new Artist(id, name, nationality));
-    }
+
+
     public int getId() { return id; }
     public String getName() { return name; }
     public LocalDate getDate() { return date; }

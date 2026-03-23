@@ -2,8 +2,8 @@
 
 I dag skal I implementere indlæsning, oprettelse og persistering af `Concert`-objekter i vores `Festival`-applikation.
 
-Jeres opgave er delt i tre dele:
-1. Implementer `Concert`-klassen
+Jeres opgave er delt i to dele:
+
 2. Implementer `createConcerts()` i `Festival`
 3. Implementer `saveConcerts()` i `Festival`
 
@@ -27,11 +27,7 @@ Filen `concerts.csv` har følgende kolonner:
 id, name, date, time, genre, stageId
 ```
 
-Eksempel:
-```
-1, Midnight Groove, 2024-08-10, 22:00, HOUSE, 2
-2, Solar Sounds, 2024-08-11, 18:00, JAZZ, 1
-```
+Se data sample i data folderen.
 
 ---
 
@@ -128,15 +124,8 @@ Læg mærke til at det er præcis den samme struktur som da I søgte efter den r
 
 ---
 
-## Del 4: Test
 
-Kør programmet, tilføj en ny concert undervejs, luk programmet og genstart. Verificer at:
 
-- Alle eksisterende concerts indlæses korrekt ved opstart
-- Den nye concert er gemt i CSV-filen efter programmet lukker
-- Genstarten indlæser den nye concert korrekt
-
----
 
 ## Hvad sker der bag kulisserne?
 

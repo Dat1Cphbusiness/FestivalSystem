@@ -9,15 +9,24 @@ enum Genre {
 }
 
 class Festival {
-    +id: int
-    +name: String
-    +location: String
-    +startDate: LocalDate
-    +endDate: LocalDate
     -stages: List<Stage>
     +startSession(): void
     +endSession(): void
+    +addStage(): void
+    +addConcert(): void
+    +addArtist(): void
     +displayStages(): void
+    +displayConcerts(): void
+    +displayArtists(): void
+    -createStages(String[]): void
+    -createConcerts(String[]): void
+    -createArtists(String[]): void
+    -saveStages(): void
+    -saveConcerts(): void
+    -saveArtists(): void
+    -nextStageId(): int
+    -nextConcertId(): int
+    -nextArtistId(): int
 }
 
 class Stage {
@@ -25,8 +34,9 @@ class Stage {
     +name: String
     +capacity: int
     -concerts: List<Concert>
-    +addConcert(Concert): void
+    +addConcert(int, String, LocalDate, LocalTime, Genre): void
     +displayConcerts(): void
+    +getConcerts(): List<Concert>
 }
 
 class Concert {
@@ -36,8 +46,9 @@ class Concert {
     +time: LocalTime
     +genre: Genre
     -artists: List<Artist>
-    +addArtist(Artist): void
+    +addArtist(int, String, String): void
     +displayArtists(): void
+    +getArtists(): List<Artist>
 }
 
 class Artist {

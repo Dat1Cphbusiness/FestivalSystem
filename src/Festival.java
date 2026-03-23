@@ -11,9 +11,46 @@ public class Festival {
     }
 
     public void startSession() {
-        createStages(FileIO.loadData("stages.csv"));
-        createConcerts(FileIO.loadData("concerts.csv"));
-        createArtists(FileIO.loadData("artists.csv"));
+
+        //load data
+        //parse data
+        //create objects and place in linst
+
+
+        run();
+
+    }
+    public void run() {
+        startSession();
+        
+        String choice = "";
+        while (!choice.equals("0")) {
+            showMainMenu();
+            choice = TextUI.promptText("Vælg:").trim();
+
+            switch (choice) {
+                case "1": displayStages();  break;
+                case "2": displayConcerts();break;
+                case "3": displayArtists(); break;
+                case "4": addStage();     break;
+                case "5": addConcert();    break;
+                case "6": addArtist();   break;
+                case "0": System.out.println("Afslutter...");
+                default :System.out.println("Ugyldigt valg, prøv igen.");
+            }
+        }
+        endSession();
+    }
+
+    private void showMainMenu() {
+        System.out.println("\n--- Festival Menu ---");
+        System.out.println("1. Vis scener");
+        System.out.println("2. Vis koncerter");
+        System.out.println("3. Vis kunstnere");
+        System.out.println("4. Tilføj scene");
+        System.out.println("5. Tilføj koncert");
+        System.out.println("6. Tilføj kunstner");
+        System.out.println("0. Afslut");
     }
 
     public void endSession() {
@@ -23,41 +60,47 @@ public class Festival {
     }
 
     // -------------------------
-    // CREATE METHODS (load from file)
+    // CREATE METHODS (with data loaded from file)
     // -------------------------
 
     private void createStages(String[] data) {
-        for (String line : data) {
-            String[] fields = line.split(",");
-            int id = Integer.parseInt(fields[0].trim());
-            String name = fields[1].trim();
-            int capacity = Integer.parseInt(fields[2].trim());
-            stages.add(new Stage(id, name, capacity));
-        }
+
     }
 
     private void createConcerts(String[] data) {
-        // Implemented by Concert-gruppen
-        // Wire each Concert to the correct Stage using stageId
+        // Gennemgå alle linjer i data
+        // Split linjen i felter på komma
+        // Udpak og konverter hvert felt: id, name, date, time, genre, stageId
+        // Opret et Concert-objekt
+        // Gennemgå alle stages
+        // Hvis stage.id matcher stageId
+        // Tilføj concert til stage
+        // Stop søgning
     }
 
     private void createArtists(String[] data) {
-        // Implemented by Artist-gruppen
-        // Wire each Artist to the correct Concert using concertId
+        // Gennemgå alle linjer i data
+        // Split linjen i felter på komma
+        // Udpak og konverter hvert felt: id, name, nationality, concertId
+        // Opret et Artist-objekt
+        // Gennemgå alle stages
+        // Gennemgå alle concerts i stage
+        // Hvis concert.id matcher concertId
+        // Tilføj artist til concert
+        // Stop søgning
     }
 
     // -------------------------
     // ADD METHODS (user input at runtime)
     // -------------------------
     public void addStage() {
-        String name = TextUI.promptText("Scenens navn:");
-        int capacity = Integer.parseInt(TextUI.promptText("Kapacitet:").trim());
-        int newId = nextStageId();
-        stages.add(new Stage(newId, name, capacity));
+      //get name from user
+        //create stage
+        //add to list
     }
 
 
-    public void addConcert() {
+  /*  public void addConcert() {
         displayStages();
         int stageId = Integer.parseInt(TextUI.promptText("Indtast scene-id:").trim());
 
@@ -108,17 +151,16 @@ public class Festival {
 
         selectedConcert.addArtist(newId, name, nationality);
     }
-
+*/
     // -------------------------
     // SAVE METHODS (persist to file)
     // -------------------------
 
     private void saveStages() {
-        List<String> lines = new ArrayList<>();
-        for (Stage s : stages) {
-            lines.add(s.getId() + ", " + s.getName() + ", " + s.getCapacity());
-        }
-        FileIO.saveData("stages.csv", lines);
+
+
+        //build csv
+        //write to file
     }
 
     private void saveConcerts() {
