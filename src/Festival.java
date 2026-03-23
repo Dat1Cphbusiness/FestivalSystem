@@ -1,51 +1,33 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Festival {
     private List<Stage> stages;
-    String header;
+    private String stagesheader;
+    private String concertsheader;
+
+
     public Festival() {
         this.stages = new ArrayList<>();
     }
 
     public void startSession() {
-
-        //load data
-
         ArrayList<String> stagesdata = FileIO.readData("data/stages.csv");
-        String header = stagesdata.removeFirst();
-        for(String s:stagesdata){
-
-            String [] fields = s.split(",");
-            int id = Integer.parseInt(fields[0].trim());
-            String name = fields[1].trim();
-            int capacity = Integer.parseInt(fields[2].trim());
-            Stage stage = new Stage(id, name, capacity);
-            stages.add(stage);
-
-        }
-
-        displayStages();
-
+        createStages(stagesdata);
+        ArrayList<String> consertsdata = FileIO.readData("data/stages.csv");
+        createStages(consertsdata);
         //load concerts
         //load artist
 
-
-      //  run();
-
+       run();
     }
 
 
-
-
-
-
     public void run() {
-    /*    startSession();
-        
+
         String choice = "";
         while (!choice.equals("0")) {
             showMainMenu();
@@ -56,13 +38,13 @@ public class Festival {
                 case "2": displayConcerts();break;
                 case "3": displayArtists(); break;
                 case "4": addStage();     break;
-                case "5": addConcert();    break;
-                case "6": addArtist();   break;
+             //   case "5": addConcert();    break;
+             //   case "6": addArtist();   break;
                 case "0": System.out.println("Afslutter...");
                 default :System.out.println("Ugyldigt valg, prøv igen.");
             }
         }
-        endSession();*/
+        endSession();
     }
 
     private void showMainMenu() {
@@ -86,22 +68,40 @@ public class Festival {
     // CREATE METHODS (with data loaded from file)
     // -------------------------
 
-    private void createStages(String[] data) {
-
+    private void createStages(ArrayList<String> data) {
+        stagesheader = data.removeFirst();
+        for(String s:data){
+            String [] fields = s.split(",");
+            int id = Integer.parseInt(fields[0].trim());
+            String name = fields[1].trim();
+            int capacity = Integer.parseInt(fields[2].trim());
+            Stage stage = new Stage(id, name, capacity);
+            stages.add(stage);
+        }
+        //displayStages();
     }
 
-    private void createConcerts(String[] data) {
-        // Gennemgå alle linjer i data
-        // Split linjen i felter på komma
-        // Udpak og konverter hvert felt: id, name, date, time, genre, stageId
-        // Opret et Concert-objekt
-        // Gennemgå alle stages
-        // Hvis stage.id matcher stageId
-        // Tilføj concert til stage
-        // Stop søgning
-    }
+    private void createConcerts(ArrayList <String> concertsData) {
+        concertsheader = concertsData.removeFirst();
+        for (String s : concertsData) {
+            String[] fields = s.split(",");
 
-    private void createArtists(String[] data) {
+            int id = Integer.parseInt(fields[0].trim());
+            String name = fields[1].trim();
+            LocalDate date = LocalDate.parse(fields[2].trim());
+            LocalTime time = LocalTime.parse(fields[3].trim());
+            Genre genre = Genre.valueOf(fields[4].trim());
+            // Concert concert = new Concert(id, name, date, time, genre);
+
+            for (Stage stage : stages) {
+                if (stage.getId() == Integer.parseInt(fields[5].trim())) {
+                    stage.addConcert(id, name, date, time, genre);
+                    break;
+                }
+            }
+        }
+    }
+    private void createArtists(ArrayList<String> artistData) {
         // Gennemgå alle linjer i data
         // Split linjen i felter på komma
         // Udpak og konverter hvert felt: id, name, nationality, concertId
@@ -117,7 +117,11 @@ public class Festival {
     // ADD METHODS (user input at runtime)
     // -------------------------
     public void addStage() {
-
+        //get name from user
+        String stagename = TextUI.promptText("Skriv scenens navn:");
+        int capacity = TextUI.promptNumber("Skriv scenens kapacitet:");
+        Stage stage = new Stage(stages.size()+1, stagename,capacity);
+        stages.add(stage);
     }
 
 
@@ -169,7 +173,6 @@ public class Festival {
         String name = TextUI.promptText("Kunstnerens navn:");
         String nationality = TextUI.promptText("Nationalitet:");
         int newId = nextArtistId();
-
         selectedConcert.addArtist(newId, name, nationality);
     }
 */
@@ -179,9 +182,21 @@ public class Festival {
 
     private void saveStages() {
 
-
+       ArrayList<String> data = new ArrayList<>();
         //build csv
-        //write to file
+        //loop through stages list
+        for(Stage s: stages){
+            String csvline = s.getId()+","+s.getName()+","+s.getCapacity();
+            data.add(csvline);
+        }
+            //for each stage, create a csv line
+            //add that line to a String array
+        //call FileIO saveData method with the array as argument
+
+        FileIO.saveData(data);
+
+
+
     }
 
     private void saveConcerts() {
@@ -220,13 +235,7 @@ public class Festival {
     // -------------------------
     // HELPERS
     // -------------------------
-    private int nextStageId() {
-        int max = 0;
-        for (Stage s : stages) {
-            if (s.getId() > max) max = s.getId();
-        }
-        return max + 1;
-    }
+
     private int nextConcertId() {
         int max = 0;
         for (Stage s : stages) {
