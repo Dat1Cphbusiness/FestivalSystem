@@ -1,11 +1,12 @@
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Festival {
     private List<Stage> stages;
-
+    String header;
     public Festival() {
         this.stages = new ArrayList<>();
     }
@@ -13,15 +14,37 @@ public class Festival {
     public void startSession() {
 
         //load data
-        //parse data
-        //create objects and place in linst
+
+        ArrayList<String> stagesdata = FileIO.readData("data/stages.csv");
+        String header = stagesdata.removeFirst();
+        for(String s:stagesdata){
+
+            String [] fields = s.split(",");
+            int id = Integer.parseInt(fields[0].trim());
+            String name = fields[1].trim();
+            int capacity = Integer.parseInt(fields[2].trim());
+            Stage stage = new Stage(id, name, capacity);
+            stages.add(stage);
+
+        }
+
+        displayStages();
+
+        //load concerts
+        //load artist
 
 
-        run();
+      //  run();
 
     }
+
+
+
+
+
+
     public void run() {
-        startSession();
+    /*    startSession();
         
         String choice = "";
         while (!choice.equals("0")) {
@@ -39,7 +62,7 @@ public class Festival {
                 default :System.out.println("Ugyldigt valg, prøv igen.");
             }
         }
-        endSession();
+        endSession();*/
     }
 
     private void showMainMenu() {
@@ -94,9 +117,7 @@ public class Festival {
     // ADD METHODS (user input at runtime)
     // -------------------------
     public void addStage() {
-      //get name from user
-        //create stage
-        //add to list
+
     }
 
 
@@ -179,7 +200,7 @@ public class Festival {
 
     public void displayStages() {
         for (Stage s : stages) {
-            System.out.println(s);
+            System.out.println(s.getName());
         }
     }
     public void displayConcerts() {
