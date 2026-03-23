@@ -32,8 +32,9 @@ public class FileIO {
         return data;
     }
 
-    public void saveData(){
-
+    public void saveData(ArrayList<String> data, String path){
+        //genneløb data
+        //for hver linje skal vi write to file (path)
 
     }
 }
