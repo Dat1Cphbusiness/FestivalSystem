@@ -11,7 +11,7 @@ Jeres opgave er delt i to dele:
 
 ## Kontekst
 
-`FileIO`-klassen er allerede implementeret med to metoder:
+ `FileIO`-klassen er allerede implementeret med to metoder:
 - `FileIO.loadData(filename)` — læser en CSV-fil og returnerer et `String[]`, én linje pr. element, uden header-linjen
 - `FileIO.saveData(filename, lines)` — skriver et `List<String>` til en CSV-fil
 
