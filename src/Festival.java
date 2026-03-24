@@ -20,7 +20,9 @@ public class Festival {
 
         ArrayList<String> concertsdata = FileIO.readData("data/concerts.csv");
         createConcerts(concertsdata);
-        //load concerts
+
+
+
         //load artist
 
        run();
@@ -39,7 +41,7 @@ public class Festival {
                 case "2": displayConcerts();break;
                 case "3": displayArtists(); break;
                 case "4": addStage();     break;
-             //   case "5": addConcert();    break;
+                case "5": addConcert();    break;
              //   case "6": addArtist();   break;
                 case "0": System.out.println("Afslutter...");break;
                 default :System.out.println("Ugyldigt valg, prøv igen.");
@@ -71,8 +73,8 @@ public class Festival {
 
     private void createStages(ArrayList<String> data) {
         stagesheader = data.removeFirst();
-        for(String s:data){
-            String [] fields = s.split(",");
+        for(String s:data){ //"1, orange, 3000"
+            String [] fields = s.split(",");//  String [] fields = {"1", "orange", "3000"}
             int id = Integer.parseInt(fields[0].trim());
             String name = fields[1].trim();
             int capacity = Integer.parseInt(fields[2].trim());
@@ -125,7 +127,7 @@ public class Festival {
     }
 
 
-  /*  public void addConcert() {
+    public void addConcert() {
         displayStages();
         int stageId = Integer.parseInt(TextUI.promptText("Indtast scene-id:").trim());
 
@@ -175,7 +177,7 @@ public class Festival {
         int newId = nextArtistId();
         selectedConcert.addArtist(newId, name, nationality);
     }
-*/
+
     // -------------------------
     // SAVE METHODS (persist to file)
     // -------------------------
