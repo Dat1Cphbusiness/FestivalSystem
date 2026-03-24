@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ public class Stage {
     private List<Concert> concerts;
 
     public Stage(int id, String name, int capacity) {
-        this.concerts = concerts;
+        this.concerts = new ArrayList<>();
         this.capacity = capacity;
         this.name = name;
         this.id = id;

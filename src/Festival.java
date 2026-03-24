@@ -17,8 +17,9 @@ public class Festival {
     public void startSession() {
         ArrayList<String> stagesdata = FileIO.readData("data/stages.csv");
         createStages(stagesdata);
-        ArrayList<String> consertsdata = FileIO.readData("data/stages.csv");
-        createStages(consertsdata);
+
+        ArrayList<String> concertsdata = FileIO.readData("data/concerts.csv");
+        createConcerts(concertsdata);
         //load concerts
         //load artist
 
@@ -40,7 +41,7 @@ public class Festival {
                 case "4": addStage();     break;
              //   case "5": addConcert();    break;
              //   case "6": addArtist();   break;
-                case "0": System.out.println("Afslutter...");
+                case "0": System.out.println("Afslutter...");break;
                 default :System.out.println("Ugyldigt valg, prøv igen.");
             }
         }
@@ -192,7 +193,7 @@ public class Festival {
 
 
         // call FileIO saveData method with the list as argument
-        FileIO.saveData(data, "stages.csv", stagesheader);
+        FileIO.saveData(data, "data/stages.csv", stagesheader);
 
 
 
