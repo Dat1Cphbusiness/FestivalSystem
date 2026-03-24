@@ -78,7 +78,6 @@ public class Festival {
             Stage stage = new Stage(id, name, capacity);
             stages.add(stage);
         }
-        //displayStages();
     }
 
     private void createConcerts(ArrayList <String> concertsData) {
@@ -183,16 +182,16 @@ public class Festival {
     private void saveStages() {
 
        ArrayList<String> data = new ArrayList<>();
-        //build csv
-        //loop through stages list
+
         for(Stage s: stages){
+            // for each stage, create a csv line
             String csvline = s.getId()+","+s.getName()+","+s.getCapacity();
+            // add that line to the list
             data.add(csvline);
         }
-            //for each stage, create a csv line
-            //add that line to a String array
-        //call FileIO saveData method with the array as argument
 
+
+        // call FileIO saveData method with the list as argument
         FileIO.saveData(data);
 
 
