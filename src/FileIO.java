@@ -1,5 +1,8 @@
+import javax.imageio.IIOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,9 +35,22 @@ public class FileIO {
         return data;
     }
 
-    public void saveData(ArrayList<String> data, String path){
+    public static void saveData(ArrayList<String> data, String path, String header){
         //genneløb data
+        try {
+            FileWriter writer = new FileWriter(path);
+            writer.write(header);
+
+            for (String s : data) {
+                writer.write(s+"\n");
+            }
+            writer.close();
+        }catch (IOException e ){
+            System.out.println("data blev ikke gemt");
+        }
         //for hver linje skal vi write to file (path)
+
+
 
     }
 }

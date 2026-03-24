@@ -192,7 +192,7 @@ public class Festival {
 
 
         // call FileIO saveData method with the list as argument
-        FileIO.saveData(data);
+        FileIO.saveData(data, "stages.csv", stagesheader);
 
 
 
