@@ -8,6 +8,7 @@ public class Festival {
     private List<Stage> stages;
     private String stagesheader;
     private String concertsheader;
+    private String artistsheader;
 
 
     public Festival() {
@@ -22,10 +23,11 @@ public class Festival {
         createConcerts(concertsdata);
 
 
-
+         ArrayList<String> artistdata = FileIO.readData("data/artists.csv");
+         createArtists(artistdata);
         //load artist
 
-       run();
+       run();//userdialog
     }
 
 
@@ -42,12 +44,23 @@ public class Festival {
                 case "3": displayArtists(); break;
                 case "4": addStage();     break;
                 case "5": addConcert();    break;
-             //   case "6": addArtist();   break;
+                case "6": addArtist();   break;
+                case "7": calcTotalCapcity();   break;
                 case "0": System.out.println("Afslutter...");break;
                 default :System.out.println("Ugyldigt valg, prøv igen.");
             }
         }
         endSession();
+    }
+
+    public int calcTotalCapcity() {
+
+        int sum= 0;
+        for(Stage s : stages){
+
+            sum+=s.getCapacity();
+        }
+        return sum;
     }
 
     private void showMainMenu() {
@@ -71,7 +84,7 @@ public class Festival {
     // CREATE METHODS (with data loaded from file)
     // -------------------------
 
-    private void createStages(ArrayList<String> data) {
+    public void createStages(ArrayList<String> data) {
         stagesheader = data.removeFirst();
         for(String s:data){ //"1, orange, 3000"
             String [] fields = s.split(",");//  String [] fields = {"1", "orange", "3000"}
@@ -105,9 +118,37 @@ public class Festival {
     }
     private void createArtists(ArrayList<String> artistData) {
         // Gennemgå alle linjer i data
-        // Split linjen i felter på komma
-        // Udpak og konverter hvert felt: id, name, nationality, concertId
-        // Opret et Artist-objekt
+        artistsheader = artistData.removeFirst();
+
+        for(String s: artistData){
+            // Split linjen i felter på komma
+            // Udpak og konverter hvert felt: id, name, nationality, concertId
+
+               String [] fields = s.split(",");
+                int id = Integer.parseInt(fields[0].trim());
+                String name = fields[1].trim();
+            String nationality = fields[2].trim();
+            int concertID = Integer.parseInt(fields[3].trim());
+            // Opret et Artist-objekt
+
+
+            for(Stage stage: stages){
+
+
+                for(Concert c: stage.getConcerts()){
+
+                    if(concertID == c.getId()){
+
+                        c.addArtist(id, name, nationality);
+                        break;
+                    }
+
+                }
+            }
+
+        }
+
+
         // Gennemgå alle stages
         // Gennemgå alle concerts i stage
         // Hvis concert.id matcher concertId
@@ -193,22 +234,35 @@ public class Festival {
             data.add(csvline);
         }
 
-
         // call FileIO saveData method with the list as argument
         FileIO.saveData(data, "data/stages.csv", stagesheader);
 
 
-
     }
 
+
+
+
+
+
     private void saveConcerts() {
-        // Implemented by Concert-gruppen
-        // Remember to include stageId in each CSV line
+
+
+
     }
 
     private void saveArtists() {
-        // Implemented by Artist-gruppen
-        // Remember to include concertId in each CSV line
+        ArrayList<String> data = new ArrayList<>();
+       for(Stage s : stages){
+           for(Concert c : s.getConcerts()){
+               for(Artist a : c.getArtists()){
+                    String csv = a.toCSV()+","+c.getId();
+                    data.add(csv);
+               }
+           }
+
+       }
+
     }
 
     // -------------------------

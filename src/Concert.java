@@ -29,9 +29,6 @@ public class Concert {
     }
 
 
-
-
-
     public int getId() { return id; }
     public String getName() { return name; }
     public LocalDate getDate() { return date; }
@@ -42,5 +39,11 @@ public class Concert {
     @Override
     public String toString() {
         return id + ": " + name + " (" + date + " " + time + " - " + genre + ")";
+    }
+
+    public void addArtist(int id, String name, String nationality) {
+
+            this.artists.add(new Artist(id, name, nationality));
+
     }
 }

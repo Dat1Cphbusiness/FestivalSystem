@@ -20,4 +20,10 @@ public class Artist {
     public String toString() {
         return id + ": " + name + " (" + nationality + ")";
     }
+
+    public String toCSV() {
+        String s = this.getId()+","+this.getName()+","+this.getNationality();
+        return s;
+
+    }
 }
